@@ -1,0 +1,25 @@
+let calc = document.getElementById('start');
+let income = document.querySelector ('.income');
+let expenses = document.querySelector ('.expenses');
+let incomePlus = income.querySelectorAll('button');
+let expensesPlus = expenses.querySelectorAll('button');
+let depositCheck = document.querySelector('#deposit-check');
+let additionalIncomeItem = document.querySelectorAll ('.additional_income-item');
+let budgetDayValue = document.querySelector ('.budget_day-value');
+let expensesMonthValue = document.querySelector ('.expenses_month-value');
+let additionalIncomeValue = document.querySelector ('.additional_income-value');
+let additionalExpensesValue = document.querySelector ('.additional_expenses-value');
+let incomePeriodValue = document.querySelector ('.income_period-value');
+let targetMonthValue = document.querySelector ('.target_month-value');
+let salaryAmount = document.querySelector ('.salary-amount');
+let incomeTitle = document.querySelector ('.income-title');
+let incomeAmount = document.querySelector ('.income-amount');
+let expensesTitle = document.querySelector ('.expenses-title');
+let expensesAmount = document.querySelector ('.expenses-amount');
+let additionalExpensesItem = document.querySelector ('.additional_expenses-item');
+let depositAmount = document.querySelector ('.deposit-amount');
+let depositPercent = document.querySelector ('.deposit-percent');
+let targetAmount = document.querySelector ('.target-amount');
+let dperiodSelect = document.querySelector ('.period-select');
+let budgetMonthValue = document.querySelector ('.budget_month-value');
+
