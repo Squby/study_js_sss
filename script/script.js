@@ -19,6 +19,7 @@ window.addEventListener('DOMContentLoaded', () => {
                 seconds = '00';
                 minutes = '00';
                 hours = '00';
+                clearInterval(2);
             }
 
             if (seconds.length === 1) {
