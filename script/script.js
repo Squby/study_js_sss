@@ -51,8 +51,82 @@ window.addEventListener('DOMContentLoaded', () => {
             }
         }
         updateClock();
-
-
     }
     countTimer('01 may 2020');
+
+    //menu
+    const toggleMenu = () => {
+
+        const btnMenu = document.querySelector('.menu'),
+            menu = document.querySelector('menu'),
+            closeBtn = document.querySelector('.close-btn'),
+            menuItems = menu.querySelectorAll('ul>li');
+
+        const handlerMenu = () => {
+            menu.classList.toggle('active-menu');
+        };
+        btnMenu.addEventListener('click', handlerMenu);
+        closeBtn.addEventListener('click', handlerMenu);
+
+        menuItems.forEach(elem => elem.addEventListener('click', handlerMenu));
+    };
+
+    toggleMenu();
+
+    //popup
+    const togglePopUp = () => {
+        const popup = document.querySelector('.popup'),
+            popupBtn = document.querySelectorAll('.popup-btn'),
+            popupClose = document.querySelector('.popup-close');
+
+        popupBtn.forEach(elem => {
+            elem.addEventListener('click', () => {
+                let count = 0;
+                popup.style.display = 'block';
+                function opacityAdd() {
+                    count += 0.1;
+                    popup.style.opacity = count;
+                    if (count === 1) {
+                        clearTimeout(4);
+                    }
+                }
+                if (screen.width > 768) {
+                    popup.style.opacity = 0;
+                    setInterval(() => opacityAdd(), 30);
+                }
+
+            });
+        });
+        popupClose.addEventListener('click', () => {
+            popup.style.display = 'none';
+        });
+    };
+    togglePopUp();
+
+    //ChengeIMG
+    const imgAll = document.querySelectorAll('.command__photo');
+    imgAll.forEach((element, i) =>  {
+        imgAll[i].addEventListener('mouseenter', () => {
+            event.target.src = event.target.dataset.img;
+        });
+    });
+
+    //ValidationFormInput
+    //document.querySelector('.calc-square').textContent.match (/[^0-9+]/g, '');
+    const calcSquare = document.querySelector('.calc-square'),
+        calcCount = document.querySelector('.calc-count'),
+        calcDay = document.querySelector('.calc-day');
+
+    function validationNum(inputValid) {
+        inputValid.addEventListener('input', () => {
+            inputValid.value = inputValid.value.replace(/\D/gi);
+        });
+    }
+    validationNum(calcSquare);
+    validationNum(calcCount);
+    validationNum(calcDay);
+
+
+
+
 });
