@@ -58,17 +58,22 @@ window.addEventListener('DOMContentLoaded', () => {
     const toggleMenu = () => {
 
         const btnMenu = document.querySelector('.menu'),
-            menu = document.querySelector('menu'),
-            closeBtn = document.querySelector('.close-btn'),
-            menuItems = menu.querySelectorAll('ul>li');
+            menu = document.querySelector('menu');
 
         const handlerMenu = () => {
             menu.classList.toggle('active-menu');
         };
-        btnMenu.addEventListener('click', handlerMenu);
-        closeBtn.addEventListener('click', handlerMenu);
 
-        menuItems.forEach(elem => elem.addEventListener('click', handlerMenu));
+        btnMenu.addEventListener('click', handlerMenu);
+        menu.addEventListener('click', () => {
+            let target = event.target;
+
+            if (!target.classList.contains('close-btn')) {
+                target = target.closest('li');
+            }
+
+            if (target) { handlerMenu(); }
+        });
     };
 
     toggleMenu();
@@ -76,32 +81,77 @@ window.addEventListener('DOMContentLoaded', () => {
     //popup
     const togglePopUp = () => {
         const popup = document.querySelector('.popup'),
-            popupBtn = document.querySelectorAll('.popup-btn'),
-            popupClose = document.querySelector('.popup-close');
+            popupBtn = document.querySelectorAll('.popup-btn');
 
         popupBtn.forEach(elem => {
             elem.addEventListener('click', () => {
-                let count = 0;
+                let count = 0,
+                    indexSetInterval;
                 popup.style.display = 'block';
                 function opacityAdd() {
                     count += 0.1;
                     popup.style.opacity = count;
-                    if (count === 1) {
-                        clearTimeout(4);
+                    console.log(count);
+                    if (count >= 1) {
+                        clearInterval(indexSetInterval);
+                        count = 0;
                     }
                 }
                 if (screen.width > 768) {
                     popup.style.opacity = 0;
-                    setInterval(() => opacityAdd(), 30);
+                    
+                    indexSetInterval = setInterval(() => opacityAdd(), 50);
+                    console.log(indexSetInterval);
                 }
-
             });
         });
-        popupClose.addEventListener('click', () => {
-            popup.style.display = 'none';
+
+        popup.addEventListener('click', event => {
+            let target = event.target;
+            if (target.classList.contains('popup-close')) {
+                popup.style.display = 'none';
+            } else {
+                target = target.closest('.popup-content');
+                if (!target) {
+                    popup.style.display = 'none';
+                }
+            }
         });
     };
     togglePopUp();
+
+    //tabs
+    const tabs = () => {
+        const tabHeader = document.querySelector('.service-header'),
+            tab = tabHeader.querySelectorAll('.service-header-tab'),
+            tabContent = document.querySelectorAll('.service-tab');
+
+        const toggleTabContent = index => {
+            for (let i = 0; i < tabContent.length; i++) {
+                if (index === i) {
+                    tab[i].classList.add('active');
+                    tabContent[i].classList.remove('d-none');
+                }   else {
+                    tab[i].classList.remove('active');
+                    tabContent[i].classList.add('d-none');
+                }
+            }
+        };
+
+        tabHeader.addEventListener('click', event => {
+            let target = event.target;
+            target = target.closest('.service-header-tab');
+            if (target) {
+                tab.forEach((item, i) => {
+                    if (item === target) {
+                        toggleTabContent(i);
+                    }
+                });
+            }
+        });
+    };
+    tabs();
+
 
     //ChengeIMG
     const imgAll = document.querySelectorAll('.command__photo');
@@ -125,8 +175,5 @@ window.addEventListener('DOMContentLoaded', () => {
     validationNum(calcSquare);
     validationNum(calcCount);
     validationNum(calcDay);
-
-
-
 
 });
