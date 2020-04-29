@@ -244,26 +244,82 @@ window.addEventListener('DOMContentLoaded', () => {
     slider();
 
     //ChengeIMG
-    const imgAll = document.querySelectorAll('.command__photo');
-    imgAll.forEach((element, i) =>  {
-        imgAll[i].addEventListener('mouseenter', () => {
-            event.target.src = event.target.dataset.img;
-        });
-    });
-
-    //ValidationFormInput
-    //document.querySelector('.calc-square').textContent.match (/[^0-9+]/g, '');
-    const calcSquare = document.querySelector('.calc-square'),
-        calcCount = document.querySelector('.calc-count'),
-        calcDay = document.querySelector('.calc-day');
-
-    function validationNum(inputValid) {
-        inputValid.addEventListener('input', () => {
-            inputValid.value = inputValid.value.replace(/\D/gi);
+    function ChengeIMG() {
+        const imgAll = document.querySelectorAll('.command__photo');
+        imgAll.forEach((element, i) =>  {
+            imgAll[i].addEventListener('mouseenter', () => {
+                event.target.src = event.target.dataset.img;
+            });
         });
     }
-    validationNum(calcSquare);
-    validationNum(calcCount);
-    validationNum(calcDay);
+    ChengeIMG();
+
+
+    //ValidationFormInput
+    function ValidationFormInput() {
+        const calcSquare = document.querySelector('.calc-square'),
+            calcCount = document.querySelector('.calc-count'),
+            calcDay = document.querySelector('.calc-day');
+
+        function validationNum(inputValid) {
+            inputValid.addEventListener('input', () => {
+                inputValid.value = inputValid.value.replace(/\D/gi);
+            });
+        }
+        validationNum(calcSquare);
+        validationNum(calcCount);
+        validationNum(calcDay);
+    }
+    ValidationFormInput();
+
+
+    //calculator
+
+    const calc = (price = 100) => {
+        const calcType = document.querySelector('.calc-type'),
+            calcBlock = document.querySelector('.calc-block'),
+            calcSquare = document.querySelector('.calc-square'),
+            calcCount = document.querySelector('.calc-count'),
+            calcDay = document.querySelector('.calc-day'),
+            totalValue = document.getElementById('total');
+
+        const countSum = () => {
+            let total = 0,
+                countValue = 1,
+                dayValue = 1;
+            const typeVlue = calcType.options[calcType.selectedIndex].value,
+                squareValue = +calcSquare.value;
+
+            if (calcCount.value > 1) {
+                countValue += (calcCount.value - 1) / 10;
+                console.log(countValue);
+            }
+
+            if (calcDay.value && calcDay.value < 5) {
+                dayValue *= 2;
+            }   else if (calcDay.value && calcDay.value < 10) {
+                dayValue *= 1.5;
+            }
+
+            if (typeVlue && squareValue) {
+                total = price * typeVlue * squareValue * countValue * dayValue;
+            }
+            totalValue.textContent = total;
+        };
+
+
+        calcBlock.addEventListener('change', event => {
+            const target = event.target;
+            if (target.matches('select') || target.matches('input')) {
+                countSum();
+            }
+        });
+
+    };
+
+    calc(100);
 
 });
+
+
+
