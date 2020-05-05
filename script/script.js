@@ -53,7 +53,7 @@ window.addEventListener('DOMContentLoaded', () => {
         }
         updateClock();
     }
-    countTimer('01 may 2020');
+    countTimer('01 december 2020');
 
     //menu
     const toggleMenu = () => {
@@ -271,7 +271,32 @@ window.addEventListener('DOMContentLoaded', () => {
         validationNum(calcDay);
     }
     ValidationFormInput();
+    // todo
+    const validationFormSend = () => {
+        const formName = document.querySelectorAll('.form-name'),
+            formPhone = document.querySelectorAll('.form-phone'),
+            mess = document.querySelector('.mess');
 
+        formPhone.forEach(elem => {
+            elem.addEventListener('input', () => {
+                elem.value = elem.value.replace(/[^0-9+]/, '');
+            });
+        });
+
+        mess.addEventListener('input', () => {
+            mess.value = mess.value.replace(/[^а-яА-ЯёЁ]/, '');
+            console.log(mess.value);
+        });
+
+
+        formName.forEach(elem => {
+            elem.addEventListener('input', () => {
+                elem.value = elem.value.replace(/[^а-яА-ЯёЁ]/, '');
+            });
+        });
+
+    };
+    validationFormSend();
 
     //calculator
 
@@ -318,6 +343,71 @@ window.addEventListener('DOMContentLoaded', () => {
     };
 
     calc(100);
+
+    //send-ajax-form
+
+    const sendForm = () => {
+        const errorMessage = 'Что-то пошло не так',
+            loadMessage = 'Загрузка...',
+            successMessage = 'Спасибо! Мы скоро с вами свяжимся!',
+            forms = document.querySelectorAll('form');
+        let indexForm;
+        forms.forEach((elem, index) => {
+            elem.addEventListener('click', event => {
+                if (event.target.classList[0] === 'btn') {
+                    indexForm = index + 1;
+                    const form = document.getElementById(`form${indexForm}`);
+                    const statusMessage = document.createElement('div');
+                    statusMessage.style.cssText = 'font-size: 2rem; color : white;';
+                    form.addEventListener('submit', event => {
+                        event.preventDefault();
+                        form.appendChild(statusMessage);
+                        statusMessage.textContent = loadMessage;
+                        const formData = new FormData(form);
+                        let body = {};
+
+                        const postData = (body, outputData, errorData) => {
+                            const request = new XMLHttpRequest();
+
+                            request.addEventListener('readystatechange', () => {
+                                if (request.readyState !== 4) {
+                                    return;
+                                }
+                                if (request.status === 200) {
+                                    outputData();
+                                    const inputs = form.querySelectorAll('input');
+                                    inputs.forEach((element, i) => {
+                                        inputs[i].value = '';
+                                    });
+                                }   else {
+                                    errorData(request.status);
+                                }
+                            });
+
+                            request.open('POST', './server.php');
+                            request.setRequestHeader('Content-Type', 'application/json');
+                            request.send(JSON.stringify(body));
+                        };
+
+                        formData.forEach((val, key) => {
+                            body[key] = val;
+                        });
+                        postData(body, () => {
+                            statusMessage.textContent = successMessage;
+                        },
+                        error => {
+                            statusMessage.textContent = errorMessage;
+                            console.log(error);
+                        });
+                    });
+                }
+            });
+        });
+
+
+    };
+    sendForm();
+
 
 });
 
