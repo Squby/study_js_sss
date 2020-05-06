@@ -366,7 +366,7 @@ window.addEventListener('DOMContentLoaded', () => {
                         const formData = new FormData(form);
                         let body = {};
 
-                        const postData = (body, outputData, errorData) => {
+                        const postData = body => new Promise((resolve, reject) => {
                             const request = new XMLHttpRequest();
 
                             request.addEventListener('readystatechange', () => {
@@ -374,31 +374,26 @@ window.addEventListener('DOMContentLoaded', () => {
                                     return;
                                 }
                                 if (request.status === 200) {
-                                    outputData();
-                                    const inputs = form.querySelectorAll('input');
-                                    inputs.forEach((element, i) => {
-                                        inputs[i].value = '';
-                                    });
-                                }   else {
-                                    errorData(request.status);
+                                    resolve();
+                                } else {
+                                    reject(request.status);
                                 }
                             });
 
                             request.open('POST', './server.php');
                             request.setRequestHeader('Content-Type', 'application/json');
                             request.send(JSON.stringify(body));
-                        };
+                        });
 
                         formData.forEach((val, key) => {
                             body[key] = val;
                         });
-                        postData(body, () => {
-                            statusMessage.textContent = successMessage;
-                        },
-                        error => {
-                            statusMessage.textContent = errorMessage;
-                            console.log(error);
-                        });
+                        postData(body)
+                            .then(() => statusMessage.textContent = successMessage)
+                            .catch(error => {
+                                console.log(error);
+                                statusMessage.textContent = errorMessage;
+                            });
                     });
                 }
             });
