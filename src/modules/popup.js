@@ -11,7 +11,6 @@
             function opacityAdd() {
                 count += 0.1;
                 popup.style.opacity = count;
-                console.log(count);
                 if (count >= 1) {
                     clearInterval(indexSetInterval);
                     count = 0;
@@ -21,7 +20,6 @@
                 popup.style.opacity = 0;
 
                 indexSetInterval = setInterval(() => opacityAdd(), 50);
-                console.log(indexSetInterval);
             }
         });
     });

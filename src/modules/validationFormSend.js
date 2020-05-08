@@ -5,19 +5,18 @@
 
         formPhone.forEach(elem => {
             elem.addEventListener('input', () => {
-                elem.value = elem.value.replace(/[^0-9+]/, '');
+                elem.value = elem.value.replace(/[^0-9+]/gi, '');
             });
         });
 
         mess.addEventListener('input', () => {
-            mess.value = mess.value.replace(/[^а-яА-ЯёЁ]/, '');
-            console.log(mess.value);
+            mess.value = mess.value.replace(/[^а-яА-ЯёЁ]/gi, '');
         });
 
 
         formName.forEach(elem => {
             elem.addEventListener('input', () => {
-                elem.value = elem.value.replace(/[^а-яА-ЯёЁ]/, '');
+                elem.value = elem.value.replace(/[^а-яА-ЯёЁ]/gi, '');
             });
         });
 

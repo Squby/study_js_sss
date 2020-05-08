@@ -17,7 +17,6 @@
 
         if (calcCount.value > 1) {
             countValue += (calcCount.value - 1) / 10;
-            console.log(countValue);
         }
 
         if (calcDay.value && calcDay.value < 5) {
