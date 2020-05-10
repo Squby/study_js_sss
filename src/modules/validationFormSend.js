@@ -1,26 +1,46 @@
    const validationFormSend = () => {
-        const formName = document.querySelectorAll('.form-name'),
-            formPhone = document.querySelectorAll('.form-phone'),
-            mess = document.querySelector('.mess');
 
-        formPhone.forEach(elem => {
-            elem.addEventListener('input', () => {
-                elem.value = elem.value.replace(/[^0-9+]/gi, '');
-            });
-        });
+    const forms = document.querySelectorAll('form');
 
-        mess.addEventListener('input', () => {
-            mess.value = mess.value.replace(/[^а-яА-ЯёЁ]/gi, '');
-        });
+    const validate = input => {
 
+        const parent = input.closest('form');
+        const enter = parent.querySelector('.form-btn');
 
-        formName.forEach(elem => {
-            elem.addEventListener('input', () => {
-                elem.value = elem.value.replace(/[^а-яА-ЯёЁ]/gi, '');
-            });
-        });
+        const rules = {
+            user_name: {
+                pattern: new RegExp('[а-яё ]', 'ig')
+            },
+            user_email: {
+                pattern: new RegExp('[A-Z0-9._%+-]+@[A-Z0-9-]+.+.[A-Z]{2,4}', 'igm'),
+            },
+            user_phone: {
+                pattern: new RegExp('(\\+7|7|8){1,2}[0-9]{10}', 'g')
+            },
+            user_message: {
+                pattern: new RegExp('[а-яё ]', 'ig')
+            }
+        };
 
+        if(!input.value.match(rules[input.name].pattern)) {
+            input.style.cssText = `border: 3px solid red;`;
+            enter.disabled = true;
+        } else {
+            input.style.cssText = `border: 3px solid orange;`;
+            enter.disabled = false;
+        }
+
+        if(input.value === '') {
+            input.style.cssText = `border: none`;
+            enter.disabled = false;
+        }
+        
     };
 
-    
+    forms.forEach(form => {
+        form.addEventListener('input', e => {
+            validate(e.target);
+        });
+    });
+    };    
     export default validationFormSend;

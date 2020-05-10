@@ -18,21 +18,19 @@ const sendForm = () => {
         });
     
 
+
+
+        
+
     [...forms].forEach(form => {
 
         form.addEventListener('submit', event => {
-            
+
             event.preventDefault();
             form.appendChild(statusMessage);
             statusMessage.textContent = loadMessage;
             
             const formData = new FormData(form);
-            // let body = {};
-
-            // formData.forEach((val, key) => {
-            //     body[key] = val;
-            // });
-
             postData(formData)
                 .then((response) => {
                     if(response.status !==200){

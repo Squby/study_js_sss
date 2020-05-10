@@ -28,7 +28,7 @@
         if (typeVlue && squareValue) {
             total = price * typeVlue * squareValue * countValue * dayValue;
         }
-        totalValue.textContent = total;
+        totalValue.textContent = Math.ceil(total);
     };
 
 
