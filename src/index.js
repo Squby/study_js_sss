@@ -16,7 +16,6 @@ import tabs from './modules/tabs';
 import slider from './modules/slider';
 import ChengeIMG from './modules/ChengeIMG';
 import ValidationFormInput from './modules/ValidationFormInput';
-import validationFormSend from './modules/validationFormSend';
 import calc from './modules/calc';
 import sendForm from './modules/sendForm';
 
@@ -27,6 +26,5 @@ tabs();
 slider();
 ChengeIMG();
 ValidationFormInput();
-validationFormSend();
 calc(100);
 sendForm();
