@@ -41,7 +41,6 @@ const popupCall = () => {
     //check-btn
     const checkBtn = document.querySelector('.check-btn'),
     popupCheck = document.querySelector('.popup-check');
-        console.log(popupCheck);
         checkBtn.addEventListener('click', () => {
             popupCheck.style.display = 'block';
     });
