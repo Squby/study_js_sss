@@ -5,8 +5,9 @@ const calc = () => {
     contentPanelBody = panelBody.children[0].children,
     accordion = document.querySelector('#accordion'),
     calcResult = document.querySelector('#calc-result'),
-    myonoffswitchTwo = document.querySelector('#myonoffswitch-two');
-
+    myonoffswitchTwo = document.querySelector('#myonoffswitch-two'),
+    distanceInput = document.querySelector('#collapseFour').children[0].children[1],
+    distanceBtn = document.querySelector('#collapseFour').children[0].children[2];
     let maintotal = 0;
 
     accordion.addEventListener('click', () => {
@@ -53,9 +54,20 @@ const calc = () => {
             if (myonoffswitchTwo.checked){
                 maintotal += 2000;
             }
+            console.log(contentPanelBody);
 
         }
         calcResult.value = maintotal;
+        distanceBtn.disabled = true;
+        distanceInput.addEventListener('input', () => {
+            distanceInput.value = distanceInput.value.replace (/[^0-9]/, '');
+            if (distanceInput.value === ''){
+                distanceBtn.disabled = true;
+            }   else{
+                distanceBtn.disabled = false;
+            }
+        });
+        
     });  
 };
 
