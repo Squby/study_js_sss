@@ -4,7 +4,6 @@ const moreTab = () => {
     allTabs = Array.from(sentence.children[0].children[0].children[1].children);
     addSentenceBtn.addEventListener('click', () => {
         allTabs.forEach(element => {
-            console.log(element);
             if (element.classList.contains('hidden') || element.classList.contains('visible-sm-block')){
                 element.classList.remove('hidden');
                 element.classList.remove('visible-sm-block');

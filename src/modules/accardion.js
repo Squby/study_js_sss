@@ -23,9 +23,11 @@ const accardion = () => {
                 if ( elem.children[1].classList.contains('in')){
                     elem.children[1].classList.remove('in');
                 }
-               if (elem.children[1].id === element.getAttribute('href').substr(1)){
-                    elem.children[1].classList.add('in');
-               }
+                if (element.getAttribute('href')){
+                    if (elem.children[1].id === element.getAttribute('href').substr(1)){
+                        elem.children[1].classList.add('in');
+                   }
+                }
                itemsAccardion.forEach(element => {
                
             });

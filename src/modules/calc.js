@@ -54,11 +54,12 @@ const calc = () => {
             if (myonoffswitchTwo.checked){
                 maintotal += 2000;
             }
-            console.log(contentPanelBody);
 
         }
         calcResult.value = maintotal;
-        distanceBtn.disabled = true;
+        if (distanceInput.value === ''){
+            distanceBtn.disabled = true;
+        }
         distanceInput.addEventListener('input', () => {
             distanceInput.value = distanceInput.value.replace (/[^0-9]/, '');
             if (distanceInput.value === ''){

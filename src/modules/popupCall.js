@@ -71,12 +71,10 @@ const popupCall = () => {
         }
     });
     consultationBtn.addEventListener('click', () => {
-        event.preventDefault();
         popupConsultation.style.display = 'block';
     });
        
     popupConsultation.addEventListener('click', event => {
-        event.preventDefault();
         let target = event.target;
         if (target.classList.contains('popup-close')) {
             popupConsultation.style.display = 'none';
