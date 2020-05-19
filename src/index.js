@@ -11,6 +11,6 @@ accardionTwo();
 moreTab();
 popupCall();
 accardion();
+sendForm();
 calc();
 validationForm();
-sendForm();

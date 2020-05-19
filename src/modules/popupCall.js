@@ -62,7 +62,9 @@ const popupCall = () => {
     directorForm = document.querySelector('.director-form'),
     consultationInput = directorForm.user_quest;
     consultationBtn.disabled = true;
-    
+    if(consultationInput.value !== ''){
+        consultationBtn.disabled = false;
+    }
     consultationInput.addEventListener('input', () =>{
         if(consultationInput.value !== ''){
             consultationBtn.disabled = false;
@@ -71,6 +73,7 @@ const popupCall = () => {
         }
     });
     consultationBtn.addEventListener('click', () => {
+        event.preventDefault();
         popupConsultation.style.display = 'block';
     });
        
