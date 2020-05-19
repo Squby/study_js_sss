@@ -45,6 +45,7 @@ const sendForm = () => {
             });
             // Комментарий
                 if (distanceInput.value !== ''){
+                    console.log(onoffswitchCheckbox);
                     body['Количество камер'] = onoffswitchCheckbox.value;
                     body['Диаметр 1-го колодца'] = contentPanelBody[1].children[1].value; 
                     body['Количество колец 1-го колодца'] = contentPanelBody[2].children[1].value;
@@ -52,6 +53,7 @@ const sendForm = () => {
                         body['Диаметр 2-го колодца'] = contentPanelBody[4].children[1].value;
                         body['Количество колец 2-го колодца'] = contentPanelBody[5].children[1].value;
                     }
+                    console.log(myonoffswitchTwo);
                     body['Наличие днища у колодца'] = myonoffswitchTwo.value;
                     body['Растояние до дома'] = distanceInput.value;
                     body['Общая стоимость'] = calcResult.value;
@@ -70,7 +72,7 @@ const sendForm = () => {
                         throw new Error('status network not 200');
                     } 
                     inputs.forEach(function(e, i) {
-                        if(!(e.type === 'file' || e.type === 'submit')) {
+                        if(!(e.type === 'file' || e.type === 'submit' || e.type === 'checkbox')) {
                             e.value = '';
                         }
                     });
